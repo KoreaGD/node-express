@@ -33,7 +33,21 @@ const userRoute = (app) => {
 
       res.status(201).send('OK');
     })
-    
+    .put((req, res) => {
+      const users = getUsers();
+
+      saveUser(users.map(user => {
+        if(user.id === req.params.id){
+          return {
+            ...user,
+            ...req.body
+          }
+        }
+        return user
+      }));
+
+      res.status(200).send('ok')
+    })
     
 
 }
